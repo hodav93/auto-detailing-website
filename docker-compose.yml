@@ -1,0 +1,12 @@
+services:
+  web:
+    image: nginx:1.27-alpine
+    container_name: boxbook-marketing
+    ports:
+      - "3002:80"
+    volumes:
+      # könyvtár-mount, mert Docker Desktop Mac-en az egyfájl-mount
+      # új inode-nál (Write/Edit) nem frissül a konténerben.
+      - ./:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped

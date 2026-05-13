@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    image: boxbook-marketing:latest
+    container_name: boxbook-marketing
+    ports:
+      - "3002:80"
+    restart: unless-stopped

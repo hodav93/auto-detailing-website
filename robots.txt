@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Konfig / tech fájlok blokkolva (nginx is)
+Disallow: /docker-compose
+Disallow: /Dockerfile
+Disallow: /nginx.conf
+
+Sitemap: https://boxbook.hu/sitemap.xml
