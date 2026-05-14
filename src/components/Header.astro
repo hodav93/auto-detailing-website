@@ -1,0 +1,58 @@
+---
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+
+const nav = [
+  { href: "/funkciok", label: "Funkciók" },
+  { href: "/lanc", label: "Lánc" },
+  { href: "/onboarding", label: "Onboarding" },
+  { href: "/marketing", label: "Marketing", badge: "+" },
+  { href: "/esettanulmanyok", label: "Esettanulmányok" },
+  { href: "/#arazas", label: "Árak", emphasize: true },
+];
+---
+
+<header class="sticky top-0 z-50 glass border-b border-ink-200/70">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5 group">
+      <span class="relative grid place-items-center w-9 h-9 rounded-xl bg-ink-900 text-white">
+        <span class="absolute inset-[2px] rounded-[10px] grad-bg opacity-90"></span>
+        <svg viewBox="0 0 24 24" class="relative w-5 h-5" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3c1.6 2.2 5 5.5 5 9a5 5 0 1 1-10 0c0-3.5 3.4-6.8 5-9z" />
+        </svg>
+      </span>
+      <span class="font-bold tracking-tighter2 text-ink-900 text-lg">BoxBook</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-5 lg:gap-6 text-sm font-medium text-ink-600">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "transition-colors",
+            item.emphasize ? "font-semibold text-ink-900 hover:text-ink-800" : "hover:text-ink-900",
+            isActive(item.href) && !item.emphasize && "text-ink-900",
+          ]}
+        >
+          {item.label}
+          {item.badge && (
+            <span class="ml-1 rounded-full grad-bg text-ink-900 px-1.5 py-0.5 text-[9px] font-extrabold tracking-widest uppercase">
+              {item.badge}
+            </span>
+          )}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="/#demo"
+        data-contact-source="DEMO_TRIAL"
+        class="inline-flex items-center gap-1.5 rounded-full bg-ink-900 text-white px-4 py-2 text-sm font-semibold hover:bg-ink-800 transition-colors"
+      >
+        Próbáld ki
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </div>
+</header>

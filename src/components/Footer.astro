@@ -1,0 +1,166 @@
+---
+import { getContent, tSync } from "../lib/cms";
+const c = await getContent();
+const tagline = tSync(c, "footer.tagline");
+const version = tSync(c, "footer.version", "v0.4");
+const contactEmail = tSync(c, "cta.contact.email", "info@boxbook.hu");
+---
+
+<footer class="relative bg-white border-t border-ink-200 overflow-hidden">
+  <div class="absolute inset-x-0 top-0 h-px grad-bg"></div>
+  <div class="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[900px] h-[300px] grad-bg blur-3xl opacity-[0.06] pointer-events-none"></div>
+
+  <!-- CTA mini band -->
+  <div class="relative border-b border-ink-200">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8 py-10 grid lg:grid-cols-12 gap-6 items-center">
+      <div class="lg:col-span-7">
+        <h3 class="text-2xl lg:text-3xl font-extrabold tracking-tightest text-ink-900 text-balance leading-[1.05]">
+          Készen állsz, hogy <span class="grad-text-strong">14 nap múlva</span> már a BoxBookban legyél?
+        </h3>
+        <p class="mt-2 text-sm text-ink-600">14 napos teljes próbafiók · kártyaadat nélkül · az adataid bármikor exportálhatók.</p>
+      </div>
+      <div class="lg:col-span-5 flex flex-wrap lg:justify-end items-center gap-3">
+        <a href="/#demo" data-contact-source="DEMO_TRIAL" class="group inline-flex items-center gap-2 rounded-full bg-ink-900 text-white px-5 py-3 text-sm font-extrabold hover:-translate-y-0.5 transition-all">
+          <i data-lucide="play" class="w-4 h-4"></i>
+          Demó kipróbálása
+          <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
+        </a>
+        <a href={`mailto:${contactEmail}`} data-contact-source="CONTACT_FORM" class="inline-flex items-center gap-2 rounded-full bg-white text-ink-900 ring-1 ring-ink-200 px-5 py-3 text-sm font-bold hover:bg-ink-50 transition-colors">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          Kapcsolat
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Columns -->
+  <div class="relative mx-auto max-w-7xl px-5 lg:px-8 py-14 grid lg:grid-cols-12 gap-10">
+    <div class="lg:col-span-4">
+      <a href="/" class="flex items-center gap-2.5">
+        <span class="relative grid place-items-center w-10 h-10 rounded-xl bg-ink-900 text-white">
+          <span class="absolute inset-[2px] rounded-[10px] grad-bg opacity-90"></span>
+          <svg viewBox="0 0 24 24" class="relative w-5 h-5" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3c1.6 2.2 5 5.5 5 9a5 5 0 1 1-10 0c0-3.5 3.4-6.8 5-9z" />
+          </svg>
+        </span>
+        <span class="font-bold tracking-tighter2 text-ink-900 text-lg">BoxBook</span>
+        <span class="rounded-full bg-leaf-50 text-leaf-700 ring-1 ring-leaf-200 px-2 py-0.5 text-[10px] font-extrabold tracking-widest uppercase">{version}</span>
+      </a>
+      <p class="mt-4 text-sm text-ink-600 max-w-md leading-relaxed">{tagline}</p>
+
+      <form class="mt-7" data-newsletter>
+        <label class="text-[11px] font-extrabold uppercase tracking-widest text-ink-500">Termék-frissítések</label>
+        <div class="mt-2 flex items-center gap-2">
+          <div class="relative flex-1">
+            <i data-lucide="mail" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-400"></i>
+            <input type="email" required placeholder="te@email.hu" class="w-full rounded-full bg-ink-50 ring-1 ring-ink-200 pl-10 pr-4 py-2.5 text-sm placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-leaf-400 focus:bg-white transition" />
+          </div>
+          <button type="submit" class="rounded-full bg-ink-900 text-white px-4 py-2.5 text-sm font-extrabold hover:bg-ink-800 transition-colors shrink-0">
+            Feliratkozás
+          </button>
+        </div>
+        <p class="mt-2 text-[11px] text-ink-500">Havonta 1 email. Lemondás 1 kattintással.</p>
+      </form>
+
+      <div class="mt-7 flex flex-wrap gap-1.5">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-leaf-50 text-leaf-700 ring-1 ring-leaf-200 px-2.5 py-1 text-[11px] font-bold"><i data-lucide="flag" class="w-3 h-3"></i> Magyar fejlesztés</span>
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-cyan-50 text-cyan-700 ring-1 ring-cyan-200 px-2.5 py-1 text-[11px] font-bold"><i data-lucide="shield-check" class="w-3 h-3"></i> GDPR</span>
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-lime-50 text-lime-700 ring-1 ring-lime-200 px-2.5 py-1 text-[11px] font-bold"><i data-lucide="server" class="w-3 h-3"></i> Hostolt EU-ban</span>
+      </div>
+    </div>
+
+    <div class="lg:col-span-2">
+      <div class="text-[11px] uppercase tracking-widest text-ink-500 font-extrabold">Termék</div>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li><a href="/funkciok" class="text-ink-700 hover:text-ink-900 transition-colors">Funkciók</a></li>
+        <li><a href="/funkciok#dashboard" class="text-ink-700 hover:text-ink-900 transition-colors">Admin dashboard</a></li>
+        <li><a href="/funkciok#naptar" class="text-ink-700 hover:text-ink-900 transition-colors">Naptár</a></li>
+        <li><a href="/funkciok#foglalas" class="text-ink-700 hover:text-ink-900 transition-colors">Foglalási flow</a></li>
+        <li><a href="/funkciok#extrak" class="text-ink-700 hover:text-ink-900 transition-colors">Extrák</a></li>
+        <li><a href="/funkciok#lojalitas" class="text-ink-700 hover:text-ink-900 transition-colors">Hűség &amp; bérlet</a></li>
+      </ul>
+    </div>
+
+    <div class="lg:col-span-2">
+      <div class="text-[11px] uppercase tracking-widest text-ink-500 font-extrabold">Megoldás</div>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li><a href="/funkciok" class="text-ink-700 hover:text-ink-900 transition-colors">Önálló szalon</a></li>
+        <li>
+          <a href="/lanc" class="inline-flex items-center gap-1.5 text-ink-700 hover:text-ink-900 transition-colors">
+            Lánc-kezelés
+            <span class="rounded-full grad-bg text-ink-900 px-1.5 py-0.5 text-[9px] font-extrabold">ÚJ</span>
+          </a>
+        </li>
+        <li>
+          <a href="/marketing" class="inline-flex items-center gap-1.5 text-ink-700 hover:text-ink-900 transition-colors">
+            Marketing &amp; skálázás
+            <span class="rounded-full bg-ink-900 text-white px-1.5 py-0.5 text-[9px] font-extrabold">+</span>
+          </a>
+        </li>
+        <li><a href="/onboarding" class="text-ink-700 hover:text-ink-900 transition-colors">Onboarding (7 nap)</a></li>
+        <li><a href="/#roi" class="text-ink-700 hover:text-ink-900 transition-colors">ROI kalkulátor</a></li>
+        <li>
+          <a href="/esettanulmanyok" class="inline-flex items-center gap-1.5 text-ink-700 hover:text-ink-900 transition-colors">
+            Esettanulmányok
+            <span class="rounded-full bg-leaf-50 text-leaf-700 ring-1 ring-leaf-200 px-1.5 py-0.5 text-[9px] font-extrabold">+1.1M</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lg:col-span-2">
+      <div class="text-[11px] uppercase tracking-widest text-ink-500 font-extrabold">Cég</div>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li>
+          <a href="/#arazas" class="inline-flex items-center gap-1.5 text-ink-700 hover:text-ink-900 transition-colors font-semibold">
+            Árazás
+            <span class="rounded-full bg-ink-900 text-white px-1.5 py-0.5 text-[9px] font-extrabold">9 900 Ft</span>
+          </a>
+        </li>
+        <li><a href="/#demo" data-contact-source="DEMO_TRIAL" class="text-ink-700 hover:text-ink-900 transition-colors">Élő demó</a></li>
+        <li><a href="/#gyik" class="text-ink-700 hover:text-ink-900 transition-colors">GYIK</a></li>
+        <li><a href={`mailto:${contactEmail}`} data-contact-source="CONTACT_FORM" class="text-ink-700 hover:text-ink-900 transition-colors">Kapcsolat</a></li>
+      </ul>
+    </div>
+
+    <div class="lg:col-span-2">
+      <div class="text-[11px] uppercase tracking-widest text-ink-500 font-extrabold">Jogi</div>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li><a href="#" class="text-ink-700 hover:text-ink-900 transition-colors">ÁSZF</a></li>
+        <li><a href="#" class="text-ink-700 hover:text-ink-900 transition-colors">Adatvédelem</a></li>
+        <li><a href="#" class="text-ink-700 hover:text-ink-900 transition-colors">Adatfeldolgozás</a></li>
+        <li><a href="#" class="text-ink-700 hover:text-ink-900 transition-colors">Cookie-k</a></li>
+        <li><a href="#" class="text-ink-700 hover:text-ink-900 transition-colors">Biztonság</a></li>
+        <li><a href="#" class="text-ink-700 hover:text-ink-900 transition-colors">Impresszum</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="relative border-t border-ink-200">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+      <div class="flex flex-wrap items-center gap-4 text-ink-500">
+        <div>© <span data-year>2026</span> BoxBook Kft.</div>
+        <span class="hidden md:inline text-ink-300">·</span>
+        <a href="#" class="inline-flex items-center gap-1.5 hover:text-ink-900 transition-colors group">
+          <span class="relative flex w-2 h-2">
+            <span class="absolute inset-0 rounded-full bg-leaf-500 opacity-60 pulse-dot"></span>
+            <span class="relative w-2 h-2 rounded-full bg-leaf-500"></span>
+          </span>
+          <span class="font-semibold text-ink-700">Minden rendszer üzemel</span>
+          <span class="text-ink-400 group-hover:text-ink-700">· status →</span>
+        </a>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 text-ink-500">
+        <span class="inline-flex items-center gap-1.5">
+          <span class="text-[14px] leading-none">🇭🇺</span>
+          <span>Made in Budapest</span>
+        </span>
+        <span class="text-ink-300">·</span>
+        <a href="/#top" class="inline-flex items-center gap-1 hover:text-ink-900 transition-colors">
+          Vissza fel
+          <i data-lucide="arrow-up" class="w-3 h-3"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

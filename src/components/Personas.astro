@@ -1,0 +1,147 @@
+---
+// "Melyik vagy te?" persona-szegmentáló — a Pricing előtt elhelyezi a látogatót,
+// hogy már tudja melyik csomagot fogja választani.
+
+const personas = [
+  {
+    emoji: "🧰",
+    name: "Egyfős vállalkozó",
+    size: "1 mosóállás",
+    fit: "Starter — 9 900 Ft / hó",
+    tagline: "Te vagy a szalon. A rendszer követi minden vendéged, autód, foglalásod.",
+    bullets: [
+      "1 mosóállás, korlátlan szolgáltatás",
+      "Magic-link vendég-fiók",
+      "Email értesítések + emlékeztető",
+      "Hűségpont rendszer",
+    ],
+    stat: { label: "Spórolt idő", value: "+10h / hét" },
+    tone: "leaf",
+    featured: false,
+  },
+  {
+    emoji: "👥",
+    name: "Kis stúdió",
+    size: "2–5 mosóállás",
+    fit: "Pro — 14 900 Ft / hó",
+    tagline: "Csapat van, vendégek özönlenek. A koordináció már nem fér el a fejedben.",
+    bullets: [
+      "Korlátlan mosó + munkatárs",
+      "Aktív/passzív fázis-tervezés",
+      "Bérlet + ajándékkártya rendszer",
+      "Google Naptár sync per-fő",
+      "Egyedi branding (logó + szín + custom domain)",
+    ],
+    stat: { label: "Bevétel-lift", value: "+18% / 90 nap" },
+    tone: "leaf",
+    featured: true,
+  },
+  {
+    emoji: "🏢",
+    name: "Lánc",
+    size: "2+ telephely",
+    fit: "Hálózat — egyedi",
+    tagline: "Több szalon, közös vendég-bázis, központi riport. Egy admin-fiókból.",
+    bullets: [
+      "Közös vendég + hűségpont központilag",
+      "Telephely-szintű riport + összesítő",
+      "Központi árazási mátrix átöröklődik",
+      "White-label app + SLA garancia",
+      "Dedikált onboarding csapat",
+    ],
+    stat: { label: "Telephely-skála", value: "2–100+" },
+    tone: "cyan",
+    featured: false,
+  },
+];
+---
+
+<section id="personas" class="relative bg-white">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8 py-24 lg:py-32">
+    <div class="max-w-3xl mx-auto text-center fade-up">
+      <span class="inline-flex items-center gap-2 rounded-full bg-ink-900 text-white px-3 py-1 text-[11px] font-bold tracking-widest uppercase">
+        Kinek készült
+      </span>
+      <h2 class="mt-5 text-4xl lg:text-6xl font-extrabold tracking-tightest text-balance leading-[1.02]">
+        <span class="grad-text-strong">Melyik vagy te?</span>
+      </h2>
+      <p class="mt-5 text-ink-600 text-lg text-pretty">
+        Három tipikus szalon-méret, három csomag. Mind ugyanazon az alap-rendszeren fut — a különbség a felhasználó, telephely-szám, és a haladó funkciókban van.
+      </p>
+    </div>
+
+    <div class="mt-14 grid lg:grid-cols-3 gap-5 max-w-6xl mx-auto items-stretch">
+      {personas.map((p, idx) => {
+        const isFeatured = p.featured;
+        return (
+          <article class:list={[
+            "fade-up rounded-3xl p-7 lg:p-8 relative flex flex-col overflow-hidden",
+            isFeatured
+              ? "bg-ink-900 text-white shadow-[0_40px_100px_-30px_rgba(9,9,11,0.4)] lg:-mt-4"
+              : "bg-ink-50 ring-1 ring-ink-200",
+          ]} style={`transition-delay: ${idx * 60}ms`}>
+            {isFeatured && (
+              <>
+                <div class="absolute -top-20 -right-20 w-72 h-72 grad-bg rounded-full blur-3xl opacity-30"></div>
+                <span class="absolute top-6 right-6 rounded-full grad-bg text-ink-900 px-3 py-1 text-[10px] font-extrabold tracking-widest uppercase shadow-[0_8px_20px_-6px_rgba(132,204,22,0.6)]">
+                  Legtöbben ezt választják
+                </span>
+              </>
+            )}
+
+            <div class="relative flex items-start justify-between">
+              <span class:list={[
+                "grid place-items-center w-14 h-14 rounded-2xl text-3xl",
+                isFeatured ? "bg-white/10 backdrop-blur" : "bg-white ring-1 ring-ink-200",
+              ]}>
+                {p.emoji}
+              </span>
+              <span class:list={[
+                "rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-widest",
+                isFeatured ? "bg-white/10 text-white ring-1 ring-white/15" : "bg-white text-ink-700 ring-1 ring-ink-200",
+              ]}>
+                {p.size}
+              </span>
+            </div>
+
+            <h3 class:list={["relative mt-5 text-2xl font-extrabold tracking-tighter2", isFeatured ? "text-white" : "text-ink-900"]}>
+              {p.name}
+            </h3>
+            <p class:list={["relative mt-2 text-sm leading-relaxed", isFeatured ? "text-white/75" : "text-ink-600"]}>
+              {p.tagline}
+            </p>
+
+            <div class:list={["relative mt-5 rounded-xl p-3 flex items-center justify-between", isFeatured ? "bg-white/10" : "bg-white ring-1 ring-ink-200"]}>
+              <span class:list={["text-[10px] font-extrabold uppercase tracking-widest", isFeatured ? "text-white/55" : "text-ink-500"]}>{p.stat.label}</span>
+              <span class:list={["text-base font-extrabold tracking-tighter2", isFeatured ? "grad-text" : "text-ink-900"]}>{p.stat.value}</span>
+            </div>
+
+            <ul class="relative mt-5 space-y-2 flex-1">
+              {p.bullets.map((b) => (
+                <li class="flex items-start gap-2 text-sm">
+                  <i data-lucide="check" class:list={["w-4 h-4 mt-0.5 shrink-0", isFeatured ? "text-leaf-400" : "text-leaf-600"]}></i>
+                  <span class={isFeatured ? "text-white/85" : "text-ink-700"}>{b}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class:list={["relative mt-6 pt-5 border-t", isFeatured ? "border-white/15" : "border-ink-200"]}>
+              <div class:list={["text-[10px] font-extrabold uppercase tracking-widest", isFeatured ? "text-white/55" : "text-ink-500"]}>Ajánlott csomag</div>
+              <div class:list={["mt-1 text-base font-extrabold tracking-tighter2", isFeatured ? "grad-text" : "text-ink-900"]}>{p.fit}</div>
+            </div>
+
+            <a href="#arazas" class:list={[
+              "relative mt-5 inline-flex items-center justify-center gap-1.5 rounded-full px-5 py-3 text-sm font-extrabold transition-all hover:-translate-y-0.5",
+              isFeatured
+                ? "grad-bg text-ink-900 shadow-[0_20px_60px_-15px_rgba(132,204,22,0.55)]"
+                : "bg-ink-900 text-white hover:bg-ink-800",
+            ]}>
+              Megnézem
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>

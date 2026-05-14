@@ -1,0 +1,136 @@
+---
+const faqs = [
+  {
+    icon: "alarm-clock",
+    color: "amber",
+    q: `Miért most kéne ezzel foglalkoznom? Nálam eddig is megy.`,
+    a: `Mert a magyar autókozmetika-keresések 87%-a Google-ön indul, és a vendégek 3 másodperc türelmet adnak. Aki nincs a TOP 3-ban friss fotókkal és értékelésekkel, az nem létezik a számukra. Iparági becslés szerint egy közepes szalon havonta ~500 000 Ft bevételt hagy a versenytársnak — minden hónap késedelem ennyi. „Eddig is ment" valójában „elment volna sokkal többre".`,
+  },
+  {
+    icon: "boxes",
+    color: "leaf",
+    q: `Mit jelent a „mosóállás-alapú” foglalás?`,
+    a: `A naptár oszlopai a mosóállásaid, nem a kollégáid. Egy autókozmetikában a szűk keresztmetszet a fizikai hely. A rendszer ezt veszi alapul a slot-keresésnél, és így pontosabban kalkulál, mint egy „1 kolléga = 1 idősáv” szemléletű naptár.`,
+  },
+  {
+    icon: "layers-2",
+    color: "leaf",
+    q: `Hogyan kezeli a passzív munka-szakaszokat?`,
+    a: `A szolgáltatások szakaszokra bonthatóak (aktív / passzív, percnyi pontossággal). A mosó passzív szakaszban is foglalt marad, de a kolléga naptárában csak az aktív idők jelennek meg — így párhuzamosan vihet másik autót.`,
+  },
+  {
+    icon: "calendar-check",
+    color: "cyan",
+    q: `Mennyi idő alatt áll be a rendszer?`,
+    a: `Próbafiók 5 perc alatt áll össze. Az éles konfiguráció — szolgáltatások, árazási mátrix, mosóállások, nyitvatartás, ÁSZF — általában 2–5 napot vesz igénybe, és ezt mi csináljuk neked, ingyenes onboardingban.`,
+  },
+  {
+    icon: "building",
+    color: "leaf",
+    q: `Több szalonom is van — egy fiókban kezelhetem?`,
+    a: `Igen. Egy admin-fiók kezeli az összes telephelyedet — közös vendég-bázis, lánc-szintű hűségpont és bérlet, közös kimutatás. Az árazás per szalon (9 900 Ft / hó), a központi „összes szalon” admin ingyenes.`,
+  },
+  {
+    icon: "tag",
+    color: "ink",
+    q: `Mit tartalmaz a 9 900 Ft / hó?`,
+    a: `Mindent. Korlátlan vendég, foglalás, mosó, szolgáltatás, kolléga; hűségpont, bérlet, ajándékkártya, várólista; Google Naptár szinkron; email értesítések; saját aldomain és arculat; magyar nyelvű support; napi backup; frissítések. Nincs „enterprise tier” vagy felárazott modul.`,
+  },
+  {
+    icon: "shield-check",
+    color: "leaf",
+    q: `GDPR-konform a rendszer?`,
+    a: `Igen. EU-s infrastruktúrán fut (Hetzner Cloud, Falkenstein/Nürnberg), per-tenant izolált adatbázissal. Magic-link bejelentkezés (jelszó nélkül), 2FA opció, audit-napló minden adminisztratív műveletről. DPA-szerződést a Pro és Hálózat csomagnál automatikusan biztosítunk. Vendég-fiókok GDPR-megfelelő törlési kérelmet kezelnek (export + véglegesítés).`,
+  },
+  {
+    icon: "download",
+    color: "cyan",
+    q: `Lemondáskor megkapom a saját adataimat?`,
+    a: `Igen, bármikor. Vendég-lista, foglalás-történet, jármű-adatok, számla-kibocsátások — mind exportálható CSV-be vagy strukturált JSON-ba egy kattintással. A workspace lemondás után 30 napig olvasható módban marad, utána GDPR-konform módon töröljük. NAV-megőrzési kötelezettség miatti adatok jogszabály szerint visszatarthatók.`,
+  },
+  {
+    icon: "globe",
+    color: "leaf",
+    q: `Saját domain használható? (foglalas.szalonom.hu)`,
+    a: `Igen, a Pro csomagtól. Adsz egy CNAME rekordot a DNS-edben, mi pedig auto-igényeljük a Let's Encrypt SSL-t. A vendégek a saját brand-domain-eden foglalnak, nem egy „boxbook.hu/szalonom" típusú URL-en. Branding-en belül: saját logo, szín, hero-szöveg.`,
+  },
+  {
+    icon: "message-circle",
+    color: "amber",
+    q: `Milyen gyorsan kapok választ ha bajt jelentek?`,
+    a: `Munkaidőben (H-P, 8-18) átlag 15 percen belül. Sürgős probléma (foglalási rendszer áll, fizetés nem megy) → 1 órán belül. A Pro és Hálózat csomagok 99.9% uptime SLA-val járnak; az incident-történetet a status.boxbook.hu-n valós időben követheted.`,
+  },
+  {
+    icon: "bell",
+    color: "cyan",
+    q: `SMS értesítés van?`,
+    a: `Igen, a Pro és Hálózat csomagokban. Foglalás-visszaigazolás, 24 órás emlékeztető, lemondás, hűségpont-jóváírás — magyar SMS-sablonokkal. A Starter csomagban email-csak (a vendégek 92%-a így is rendben kap értesítést), SMS-add-on per-üzenet alapon hozzákapcsolható.`,
+  },
+];
+
+const colorMap: Record<string, { bg: string; ring: string; text: string; openBg: string; openRing: string }> = {
+  leaf: { bg: "bg-leaf-50", ring: "ring-leaf-200", text: "text-leaf-700", openBg: "open:bg-leaf-50/50", openRing: "open:ring-leaf-400" },
+  cyan: { bg: "bg-cyan-50", ring: "ring-cyan-200", text: "text-cyan-700", openBg: "open:bg-cyan-50/50", openRing: "open:ring-cyan-400" },
+  lime: { bg: "bg-lime-50", ring: "ring-lime-200", text: "text-lime-700", openBg: "open:bg-lime-50/50", openRing: "open:ring-lime-400" },
+  amber: { bg: "bg-amber-50", ring: "ring-amber-200", text: "text-amber-600", openBg: "open:bg-amber-50/60", openRing: "open:ring-amber-400" },
+  ink: { bg: "bg-ink-50", ring: "ring-ink-200", text: "text-ink-700", openBg: "open:bg-ink-50/60", openRing: "open:ring-ink-900" },
+};
+---
+
+<section id="gyik" class="relative bg-ink-50 border-y border-ink-200">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-4 fade-up">
+        <div class="lg:sticky lg:top-24">
+          <span class="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-ink-200 text-ink-700 px-3 py-1 text-[11px] font-bold tracking-widest uppercase">GYIK</span>
+          <h2 class="mt-5 text-4xl lg:text-5xl font-extrabold tracking-tightest text-balance leading-[1.02]">
+            Tipikus kérdések<br/>
+            <span class="grad-text-strong">tipikus tulajoktól.</span>
+          </h2>
+          <p class="mt-4 text-ink-600 text-pretty">Az autókozmetika-tulajok ezeket kérdezik meg elsőre. Ha hiányzik valami, egy email és néhány percen belül válaszolunk.</p>
+
+          <div class="mt-7 rounded-2xl bg-ink-900 text-white p-5 relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-36 h-36 grad-bg rounded-full blur-3xl opacity-35"></div>
+            <div class="relative">
+              <div class="flex items-center gap-3">
+                <span class="relative grid place-items-center w-11 h-11 rounded-xl grad-bg text-ink-900">
+                  <i data-lucide="message-circle-more" class="w-5 h-5"></i>
+                  <span class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-leaf-400 ring-2 ring-ink-900 pulse-dot"></span>
+                </span>
+                <div>
+                  <div class="font-extrabold tracking-tighter2">Nem találod a választ?</div>
+                  <div class="text-[11px] text-white/55">Munkaidőben ~15 percen belül</div>
+                </div>
+              </div>
+              <a href="#" data-contact-source="CONTACT_FORM" class="mt-4 inline-flex items-center gap-2 rounded-full bg-white text-ink-900 px-4 py-2 text-xs font-extrabold">
+                <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+                info@boxbook.hu
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-8 fade-up space-y-2.5">
+        {faqs.map((f) => {
+          const colors = colorMap[f.color];
+          return (
+            <details class:list={["group rounded-2xl bg-white ring-1 ring-ink-200 transition-all", colors.openBg, colors.openRing]}>
+              <summary class="cursor-pointer list-none flex items-center gap-4 p-5 font-bold text-ink-900 tracking-tighter2">
+                <span class:list={["grid place-items-center w-9 h-9 rounded-xl shrink-0 transition-colors ring-1", colors.bg, colors.text, colors.ring, "group-open:grad-bg"]}>
+                  <i data-lucide={f.icon} class="w-4 h-4"></i>
+                </span>
+                <span class="flex-1">{f.q}</span>
+                <span class="grid place-items-center w-8 h-8 rounded-full bg-ink-100 text-ink-700 group-open:bg-ink-900 group-open:text-white transition-all shrink-0">
+                  <i data-lucide="plus" class="w-4 h-4 group-open:rotate-45 transition-transform duration-300"></i>
+                </span>
+              </summary>
+              <div class="px-5 pb-5 pl-[4.5rem] text-sm text-ink-600 leading-relaxed">{f.a}</div>
+            </details>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>

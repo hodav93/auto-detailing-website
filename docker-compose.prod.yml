@@ -1,6 +1,11 @@
+# Production deploy (Coolify auto-deploy)
 services:
   web:
-    build: .
+    build:
+      context: .
+      args:
+        PUBLIC_CMS_URL: ${PUBLIC_CMS_URL:-https://app.boxbook.hu}
+        PUBLIC_SITE_URL: ${PUBLIC_SITE_URL:-https://boxbook.hu}
     image: boxbook-marketing:latest
     container_name: boxbook-marketing
     ports:

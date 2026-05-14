@@ -2,7 +2,13 @@
 .gitignore
 .DS_Store
 node_modules
+dist
+.astro
 docker-compose*.yml
 .dockerignore
 README.md
 *.md
+index.html.legacy
+assets
+.env
+.env.*

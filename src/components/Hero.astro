@@ -1,0 +1,173 @@
+---
+import { getContent, tSync } from "../lib/cms";
+const c = await getContent();
+// CMS-fallback: ha még nincsenek átírva, a régi szövegekkel build-elünk.
+const audienceBadge = tSync(
+  c,
+  "hero.audience",
+  "Autókozmetikáknak és mosóknak"
+);
+const titleA = tSync(c, "hero.title.line1", "Az autókozmetikád");
+const titleB = tSync(c, "hero.title.line2", "operatív rendszere.");
+const titleC = tSync(c, "hero.title.line3", "");
+const description = tSync(
+  c,
+  "hero.description",
+  "Foglalás, naptár, vendég, jármű, ár, bérlet, hűségpont, riport — egy rendszer, 60+ funkció, magyar pénzügyi környezetre szabva. Az 1-mosóállásos egyfős vállalkozástól a lánc-tulajdonosig."
+);
+const ctaPrimary = tSync(c, "hero.cta.primary", "14 nap ingyen kipróbálom");
+const ctaSecondary = tSync(c, "hero.cta.secondary", "Funkciók megnézése");
+---
+
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 mesh pointer-events-none"></div>
+  <div class="absolute inset-x-0 top-0 h-[520px] grid-bg pointer-events-none"></div>
+
+  <div class="relative mx-auto max-w-7xl px-5 lg:px-8 pt-12 lg:pt-20 pb-20 lg:pb-28">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+      <div class="lg:col-span-7 fade-up">
+        <!-- AUDIENCE BADGE + CAPACITY FOMO — első 2 mp-ben tudja a látogató hogy ez neki szól + sürgetés -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="inline-flex items-center gap-2 rounded-full grad-bg text-ink-900 px-3.5 py-1.5 text-[11px] font-extrabold tracking-widest uppercase shadow-[0_8px_20px_-6px_rgba(132,204,22,0.45)]">
+            <i data-lucide="target" class="w-3.5 h-3.5"></i>
+            {audienceBadge}
+          </span>
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 ring-1 ring-amber-200 text-amber-800 px-3 py-1.5 text-[11px] font-extrabold tracking-widest uppercase">
+            <i data-lucide="flame" class="w-3.5 h-3.5"></i>
+            Q2 onboarding · még 4 hely
+          </span>
+        </div>
+
+        <h1 class="mt-5 font-extrabold tracking-tightest text-balance text-4xl sm:text-5xl lg:text-[64px] leading-[1.02] text-ink-900">
+          {titleA} <span class="grad-text">{titleB}</span>{titleC && <><br />{titleC}</>}
+        </h1>
+
+        <p class="mt-6 text-lg lg:text-xl text-ink-600 text-pretty max-w-2xl leading-relaxed">
+          <Fragment set:html={description} />
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a
+            href="/#demo"
+            data-contact-source="DEMO_TRIAL"
+            class="group relative inline-flex items-center gap-2 rounded-full bg-ink-900 text-white px-6 py-3.5 text-sm font-semibold hover:bg-ink-800 transition-all hover:-translate-y-0.5"
+          >
+            <span class="absolute -left-1 -top-1 w-3 h-3 rounded-full grad-bg"></span>
+            {ctaPrimary}
+            <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+          </a>
+          <a href="/funkciok" class="inline-flex items-center gap-2 rounded-full bg-white text-ink-900 px-6 py-3.5 text-sm font-semibold ring-1 ring-ink-200 hover:bg-ink-50 transition-colors">
+            {ctaSecondary}
+          </a>
+        </div>
+
+        <!-- 3 ÜZLETI MUTATÓ — eredményt, nem funkciót -->
+        <div class="mt-9 grid sm:grid-cols-3 gap-4 max-w-2xl">
+          <div class="rounded-xl bg-white ring-1 ring-ink-200 px-4 py-3 flex items-center gap-3">
+            <span class="grid place-items-center w-9 h-9 rounded-lg bg-leaf-50 text-leaf-700 ring-1 ring-leaf-200 shrink-0">
+              <i data-lucide="clock-9" class="w-4 h-4"></i>
+            </span>
+            <div class="min-w-0">
+              <div class="text-base font-extrabold tracking-tighter2 text-ink-900 leading-none">+10 óra</div>
+              <div class="text-[11px] text-ink-500 mt-0.5">szabad idő / hét</div>
+            </div>
+          </div>
+          <div class="rounded-xl bg-white ring-1 ring-ink-200 px-4 py-3 flex items-center gap-3">
+            <span class="grid place-items-center w-9 h-9 rounded-lg bg-cyan-50 text-cyan-700 ring-1 ring-cyan-200 shrink-0">
+              <i data-lucide="bell-off" class="w-4 h-4"></i>
+            </span>
+            <div class="min-w-0">
+              <div class="text-base font-extrabold tracking-tighter2 text-ink-900 leading-none">−40%</div>
+              <div class="text-[11px] text-ink-500 mt-0.5">no-show ráta</div>
+            </div>
+          </div>
+          <div class="rounded-xl bg-white ring-1 ring-ink-200 px-4 py-3 flex items-center gap-3">
+            <span class="grid place-items-center w-9 h-9 rounded-lg bg-lime-50 text-lime-700 ring-1 ring-lime-200 shrink-0">
+              <i data-lucide="trending-up" class="w-4 h-4"></i>
+            </span>
+            <div class="min-w-0">
+              <div class="text-base font-extrabold tracking-tighter2 text-ink-900 leading-none">+1.1M Ft</div>
+              <div class="text-[11px] text-ink-500 mt-0.5">havi extra (esettanulmány)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ALSÓ MINI-CHIP — bizalom -->
+        <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] text-ink-500 font-medium">
+          <span class="inline-flex items-center gap-1.5">
+            <span class="relative flex w-2 h-2">
+              <span class="absolute inset-0 rounded-full bg-leaf-500 opacity-60 pulse-dot"></span>
+              <span class="relative w-2 h-2 rounded-full bg-leaf-500"></span>
+            </span>
+            Élő demó · most foglalható
+          </span>
+          <span class="text-ink-300">·</span>
+          <span>Magyar fejlesztés &amp; support</span>
+          <span class="text-ink-300">·</span>
+          <span>14 nap próba kártyaadat nélkül</span>
+        </div>
+      </div>
+
+      <!-- mockup -->
+      <div class="lg:col-span-5 fade-up" style="transition-delay: 120ms">
+        <div class="relative">
+          <div class="absolute -inset-8 rounded-[2rem] grad-bg blur-3xl opacity-20"></div>
+          <div class="relative rounded-2xl bg-white ring-1 ring-ink-200 shadow-[0_30px_80px_-30px_rgba(9,9,11,0.20)] overflow-hidden">
+            <div class="flex items-center gap-1.5 px-4 py-3 border-b border-ink-100 bg-ink-50">
+              <span class="w-2.5 h-2.5 rounded-full bg-ink-200"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-ink-200"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-ink-200"></span>
+              <div class="ml-3 flex-1 h-6 rounded-md bg-white ring-1 ring-ink-200 px-2.5 text-[11px] text-ink-500 flex items-center gap-1.5">
+                <i data-lucide="lock" class="w-3 h-3"></i>
+                foglalas.te-autokozmetikad.hu / naptár
+              </div>
+            </div>
+            <div class="p-4 sm:p-5 bg-white">
+              <div class="flex items-center justify-between mb-3">
+                <div>
+                  <div class="text-sm font-bold text-ink-900 tracking-tighter2">Hétfő, 2026.05.18</div>
+                  <div class="text-[11px] text-ink-500">Resource Timeline · 4 mosóállás</div>
+                </div>
+              </div>
+              <div class="rounded-xl ring-1 ring-ink-200 overflow-hidden">
+                <div class="grid grid-cols-[84px_repeat(8,minmax(0,1fr))] bg-ink-50 text-[10px] text-ink-500 font-semibold">
+                  <div class="px-2 py-1.5"></div>
+                  <div class="px-1 py-1.5 text-center">08</div>
+                  <div class="px-1 py-1.5 text-center">09</div>
+                  <div class="px-1 py-1.5 text-center">10</div>
+                  <div class="px-1 py-1.5 text-center">11</div>
+                  <div class="px-1 py-1.5 text-center">12</div>
+                  <div class="px-1 py-1.5 text-center">13</div>
+                  <div class="px-1 py-1.5 text-center">14</div>
+                  <div class="px-1 py-1.5 text-center">15</div>
+                </div>
+                <div class="divide-y divide-ink-100 text-[11px]">
+                  <div class="grid grid-cols-[84px_repeat(8,minmax(0,1fr))] items-center min-h-[44px]">
+                    <div class="px-2 py-2"><div class="font-bold text-ink-900 tracking-tight">Mosó01</div><div class="text-[9px] text-ink-500">belső</div></div>
+                    <div class="col-span-2 m-1 rounded-md bg-ink-900 text-white px-2 py-1 text-[10px] font-semibold">Kovács B.</div>
+                    <div class="col-span-3 m-1 col-start-5 rounded-md grad-bg text-white px-2 py-1 text-[10px] font-semibold">Nagy P.</div>
+                  </div>
+                  <div class="grid grid-cols-[84px_repeat(8,minmax(0,1fr))] items-center min-h-[44px]">
+                    <div class="px-2 py-2"><div class="font-bold text-ink-900 tracking-tight">Mosó02</div><div class="text-[9px] text-ink-500">polírozó</div></div>
+                    <div class="col-span-4 col-start-2 m-1 rounded-md grad-bg-dark text-white px-2 py-1 text-[10px] font-semibold">Szabó G. · Polírozás</div>
+                  </div>
+                  <div class="grid grid-cols-[84px_repeat(8,minmax(0,1fr))] items-center min-h-[44px]">
+                    <div class="px-2 py-2"><div class="font-bold text-ink-900 tracking-tight">Mosó03</div><div class="text-[9px] text-ink-500">külső</div></div>
+                    <div class="col-span-1 col-start-2 m-1 rounded-md bg-ink-900 text-white px-1 py-1 text-[10px] font-semibold text-center">M</div>
+                    <div class="col-span-1 col-start-3 m-1 rounded-md bg-ink-900 text-white px-1 py-1 text-[10px] font-semibold text-center">M</div>
+                    <div class="col-span-2 col-start-5 m-1 rounded-md bg-leaf-100 text-leaf-800 px-2 py-1 text-[10px] font-semibold ring-1 ring-leaf-200">Tóth E.</div>
+                  </div>
+                  <div class="grid grid-cols-[84px_repeat(8,minmax(0,1fr))] items-center min-h-[44px]">
+                    <div class="px-2 py-2"><div class="font-bold text-ink-900 tracking-tight">Mosó04</div><div class="text-[9px] text-ink-500">ózon</div></div>
+                    <div class="col-span-2 col-start-3 m-1 rounded-md bg-ink-900 text-white px-2 py-1 text-[10px] font-semibold">Varga D.</div>
+                    <div class="col-span-3 col-start-5 m-1 rounded-md bg-leaf-50 text-leaf-700 px-2 py-1 text-[10px] font-semibold ring-1 ring-leaf-200 border border-dashed border-leaf-300">passzív</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

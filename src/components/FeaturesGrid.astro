@@ -1,0 +1,132 @@
+---
+// 9 fő funkció bento layout-ban — a teljes deep dive a /funkciok aloldalon
+---
+
+<section id="funkciok" class="relative">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 items-end mb-14">
+      <div class="lg:col-span-7 fade-up">
+        <span class="inline-flex items-center gap-2 rounded-full bg-ink-900 text-white px-3 py-1 text-[11px] font-bold tracking-widest uppercase">Funkciók</span>
+        <h2 class="mt-5 text-4xl lg:text-6xl font-extrabold tracking-tightest text-balance leading-[1.02]">
+          Minden, ami egy autókozmetika napjához kell.
+          <span class="serif font-normal text-ink-500">Semmi, ami nem.</span>
+        </h2>
+      </div>
+      <div class="lg:col-span-5 fade-up" style="transition-delay: 80ms">
+        <p class="text-ink-600 text-lg text-pretty">
+          Nem általános naptár-app. A BoxBook a mosóállás-, autó-, szolgáltatás- és fázis-logika köré épült, hogy a foglalás magától megtalálja a megfelelő helyet.
+        </p>
+        <a href="/funkciok" class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-ink-900 hover:gap-2 transition-all">
+          Mind a 40+ funkció részletesen
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <article class="fade-up rounded-2xl bg-leaf-50 ring-1 ring-leaf-200 p-7 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(16,185,129,0.35)] transition-all">
+        <div class="flex items-center justify-between">
+          <div class="grid place-items-center w-11 h-11 rounded-xl bg-white text-leaf-700 ring-1 ring-leaf-200"><i data-lucide="calendar-clock" class="w-5 h-5"></i></div>
+          <span class="text-[10px] font-extrabold tracking-widest text-leaf-700/40 uppercase">01</span>
+        </div>
+        <h3 class="mt-5 font-bold text-ink-900 tracking-tighter2 text-lg">Online foglalás 24/7</h3>
+        <p class="mt-1.5 text-sm text-ink-700 leading-relaxed">Szolgáltatás, jármű, időpont — a rendszer automatikusan megkeresi a megfelelő szabad mosóállást.</p>
+      </article>
+
+      <article class="fade-up rounded-2xl grad-bg p-7 overflow-hidden relative hover:-translate-y-0.5 hover:shadow-[0_25px_50px_-20px_rgba(132,204,22,0.55)] transition-all" style="transition-delay: 30ms">
+        <div class="absolute -top-12 -right-12 w-40 h-40 bg-white rounded-full blur-3xl opacity-40"></div>
+        <div class="relative flex items-center justify-between">
+          <div class="grid place-items-center w-11 h-11 rounded-xl bg-ink-900 text-white"><i data-lucide="layout-dashboard" class="w-5 h-5"></i></div>
+          <span class="text-[10px] font-extrabold tracking-widest text-ink-900/40 uppercase">02</span>
+        </div>
+        <h3 class="relative mt-5 font-extrabold text-ink-900 tracking-tighter2 text-lg">Mosóállás-alapú timeline</h3>
+        <p class="relative mt-1.5 text-sm text-ink-900/80 leading-relaxed">A naptár oszlopai a mosóállások — nem a kollégák. Drag &amp; drop, ütközés-figyelés, párhuzamos foglalások.</p>
+        <a href="/funkciok#naptar" class="relative mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-ink-900">A lényeg <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+      </article>
+
+      <article class="fade-up rounded-2xl bg-ink-900 text-white p-7 overflow-hidden relative hover:-translate-y-0.5 hover:shadow-[0_25px_50px_-20px_rgba(9,9,11,0.55)] transition-all" style="transition-delay: 60ms">
+        <div class="absolute -top-12 -right-12 w-32 h-32 grad-bg rounded-full blur-3xl opacity-35"></div>
+        <div class="relative flex items-center justify-between">
+          <div class="grid place-items-center w-11 h-11 rounded-xl bg-white/10 text-leaf-400 ring-1 ring-white/15"><i data-lucide="car-front" class="w-5 h-5"></i></div>
+          <span class="text-[10px] font-extrabold tracking-widest text-white/30 uppercase">03</span>
+        </div>
+        <h3 class="relative mt-5 font-bold tracking-tighter2 text-lg">Jármű-profilok</h3>
+        <p class="relative mt-1.5 text-sm text-white/70 leading-relaxed">Vendég → autók 1:n. Rendszám-kereső, javítási előzmény, megjegyzések — a fogadás a kapuban gyors.</p>
+      </article>
+
+      <article class="fade-up rounded-2xl bg-cyan-50 ring-1 ring-cyan-200 p-7 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(6,182,212,0.40)] transition-all">
+        <div class="flex items-center justify-between">
+          <div class="grid place-items-center w-11 h-11 rounded-xl bg-white text-cyan-700 ring-1 ring-cyan-200"><i data-lucide="table-properties" class="w-5 h-5"></i></div>
+          <span class="text-[10px] font-extrabold tracking-widest text-cyan-700/40 uppercase">04</span>
+        </div>
+        <h3 class="mt-5 font-bold text-ink-900 tracking-tighter2 text-lg">Árazási mátrix</h3>
+        <p class="mt-1.5 text-sm text-ink-700 leading-relaxed">Szolgáltatás × járműkategória → ár és időigény. Nincs többé „mennyi is egy SUV-mosás?"</p>
+      </article>
+
+      <article class="fade-up rounded-2xl bg-lime-50 ring-1 ring-lime-200 p-7 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(132,204,22,0.40)] transition-all" style="transition-delay: 30ms">
+        <div class="flex items-center justify-between">
+          <div class="grid place-items-center w-11 h-11 rounded-xl bg-white text-lime-700 ring-1 ring-lime-200"><i data-lucide="layers-2" class="w-5 h-5"></i></div>
+          <span class="text-[10px] font-extrabold tracking-widest text-lime-700/40 uppercase">05</span>
+        </div>
+        <h3 class="mt-5 font-bold text-ink-900 tracking-tighter2 text-lg">Aktív / passzív fázisok</h3>
+        <p class="mt-1.5 text-sm text-ink-700 leading-relaxed">60 perc aktív, 30 passzív, 30 aktív? A kolléga a passzív alatt másik autóhoz mehet.</p>
+      </article>
+
+      <article class="fade-up rounded-2xl bg-leaf-50 ring-1 ring-leaf-200 p-7 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(16,185,129,0.35)] transition-all" style="transition-delay: 60ms">
+        <div class="flex items-center justify-between">
+          <div class="grid place-items-center w-11 h-11 rounded-xl bg-white text-leaf-700 ring-1 ring-leaf-200"><i data-lucide="gift" class="w-5 h-5"></i></div>
+          <span class="text-[10px] font-extrabold tracking-widest text-leaf-700/40 uppercase">06</span>
+        </div>
+        <h3 class="mt-5 font-bold text-ink-900 tracking-tighter2 text-lg">Hűségpont rendszer</h3>
+        <p class="mt-1.5 text-sm text-ink-700 leading-relaxed">Konfigurálható szerzés / beváltás, lejárati idő, max kedvezmény foglalásonként.</p>
+      </article>
+
+      <article class="fade-up rounded-2xl bg-ink-900 text-white p-7 overflow-hidden relative hover:-translate-y-0.5 hover:shadow-[0_25px_50px_-20px_rgba(9,9,11,0.55)] transition-all">
+        <div class="absolute -bottom-12 -left-12 w-32 h-32 grad-bg rounded-full blur-3xl opacity-30"></div>
+        <div class="relative flex items-center justify-between">
+          <div class="grid place-items-center w-11 h-11 rounded-xl bg-white/10 text-leaf-400 ring-1 ring-white/15"><i data-lucide="ticket" class="w-5 h-5"></i></div>
+          <span class="text-[10px] font-extrabold tracking-widest text-white/30 uppercase">07</span>
+        </div>
+        <h3 class="relative mt-5 font-bold tracking-tighter2 text-lg">Bérletek</h3>
+        <p class="relative mt-1.5 text-sm text-white/70 leading-relaxed">„5+1 külső mosás" csomag szolgáltatás vagy kategória szinten, járműhöz vagy vendéghez kötve.</p>
+      </article>
+
+      <article class="fade-up rounded-2xl bg-cyan-50 ring-1 ring-cyan-200 p-7 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(6,182,212,0.40)] transition-all" style="transition-delay: 30ms">
+        <div class="flex items-center justify-between">
+          <div class="grid place-items-center w-11 h-11 rounded-xl bg-white text-cyan-700 ring-1 ring-cyan-200"><i data-lucide="calendar-sync" class="w-5 h-5"></i></div>
+          <span class="text-[10px] font-extrabold tracking-widest text-cyan-700/40 uppercase">08</span>
+        </div>
+        <h3 class="mt-5 font-bold text-ink-900 tracking-tighter2 text-lg">Google Naptár sync</h3>
+        <p class="mt-1.5 text-sm text-ink-700 leading-relaxed">Per-munkatárs OAuth, egyirányú szinkron — a kolléga telefonján ott a saját napja.</p>
+      </article>
+
+      <article class="fade-up rounded-2xl bg-lime-50 ring-1 ring-lime-200 p-7 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(132,204,22,0.40)] transition-all" style="transition-delay: 60ms">
+        <div class="flex items-center justify-between">
+          <div class="grid place-items-center w-11 h-11 rounded-xl bg-white text-lime-700 ring-1 ring-lime-200"><i data-lucide="mail-check" class="w-5 h-5"></i></div>
+          <span class="text-[10px] font-extrabold tracking-widest text-lime-700/40 uppercase">09</span>
+        </div>
+        <h3 class="mt-5 font-bold text-ink-900 tracking-tighter2 text-lg">Email értesítések</h3>
+        <p class="mt-1.5 text-sm text-ink-700 leading-relaxed">Visszaigazolás, 24 órás emlékeztető, lemondási link, hűségpont-jóváírás — magyar sablonokkal.</p>
+      </article>
+    </div>
+
+    <div class="mt-3 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <a href="/lanc" class="fade-up flex items-center gap-3 rounded-2xl grad-bg p-4 hover:-translate-y-0.5 transition-all">
+        <i data-lucide="building" class="w-5 h-5 text-ink-900 shrink-0"></i>
+        <span class="text-sm text-ink-900"><b class="font-extrabold">Lánc-kezelés</b> — több szalon</span>
+      </a>
+      <div class="fade-up flex items-center gap-3 rounded-2xl bg-leaf-50 ring-1 ring-leaf-200 px-4 py-3" style="transition-delay: 30ms">
+        <i data-lucide="key-round" class="w-5 h-5 text-leaf-700 shrink-0"></i>
+        <span class="text-sm text-ink-800"><b class="text-ink-900">Magic link</b> — nincs jelszó</span>
+      </div>
+      <div class="fade-up flex items-center gap-3 rounded-2xl bg-cyan-50 ring-1 ring-cyan-200 px-4 py-3" style="transition-delay: 60ms">
+        <i data-lucide="smartphone" class="w-5 h-5 text-cyan-700 shrink-0"></i>
+        <span class="text-sm text-ink-800"><b class="text-ink-900">PWA</b> — telepíthető mobilra</span>
+      </div>
+      <div class="fade-up flex items-center gap-3 rounded-2xl bg-lime-50 ring-1 ring-lime-200 px-4 py-3" style="transition-delay: 90ms">
+        <i data-lucide="settings-2" class="w-5 h-5 text-lime-700 shrink-0"></i>
+        <span class="text-sm text-ink-800"><b class="text-ink-900">Admin Core</b> — teljes CRUD</span>
+      </div>
+    </div>
+  </div>
+</section>

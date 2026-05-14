@@ -1,0 +1,92 @@
+---
+// Interaktív ROI kalkulátor — a JS a Base.astro-ban van
+---
+
+<section id="roi" class="relative bg-ink-900 text-white overflow-hidden">
+  <div class="absolute inset-0 opacity-40 pointer-events-none" style="background-image: radial-gradient(at 20% 30%, rgba(132,204,22,0.30), transparent 50%), radial-gradient(at 80% 70%, rgba(6,182,212,0.25), transparent 50%);"></div>
+  <div class="relative mx-auto max-w-7xl px-5 lg:px-8 py-24 lg:py-32">
+    <div class="max-w-3xl mx-auto text-center fade-up">
+      <span class="inline-flex items-center gap-2 rounded-full bg-white/10 text-white ring-1 ring-white/15 px-3 py-1 text-[11px] font-bold tracking-widest uppercase">
+        <i data-lucide="calculator" class="w-3 h-3"></i>
+        ROI kalkulátor
+      </span>
+      <h2 class="mt-5 text-4xl lg:text-5xl font-extrabold tracking-tightest text-balance leading-[1.02]">
+        Húzd a slidert, és számold ki <span class="grad-text">mennyi a tied.</span>
+      </h2>
+      <p class="mt-4 text-white/70 text-pretty">Iparági átlagok alapján — a no-show csökkenése és a kihasználtság-növelés szárán.</p>
+    </div>
+
+    <div class="mt-12 grid lg:grid-cols-5 gap-6 items-start max-w-6xl mx-auto">
+      <div class="lg:col-span-2 rounded-2xl bg-white/[0.06] ring-1 ring-white/10 backdrop-blur p-6 lg:p-7 fade-up">
+        <div class="space-y-7">
+          <div>
+            <div class="flex items-center justify-between text-sm font-semibold">
+              <label for="roi-mosas" class="text-white/85">Mosások / nap</label>
+              <span class="rounded-full bg-white/10 ring-1 ring-white/15 px-3 py-1 text-base font-extrabold tracking-tighter2"><span id="roi-mosas-val">12</span> db</span>
+            </div>
+            <input id="roi-mosas" type="range" min="3" max="40" value="12" class="w-full mt-3 roi-range" />
+            <div class="flex justify-between text-[10px] text-white/40 mt-1 font-semibold"><span>3</span><span>40</span></div>
+          </div>
+          <div>
+            <div class="flex items-center justify-between text-sm font-semibold">
+              <label for="roi-ar" class="text-white/85">Átlagos ár / mosás</label>
+              <span class="rounded-full bg-white/10 ring-1 ring-white/15 px-3 py-1 text-base font-extrabold tracking-tighter2"><span id="roi-ar-val">12</span> 000 Ft</span>
+            </div>
+            <input id="roi-ar" type="range" min="4" max="50" step="1" value="12" class="w-full mt-3 roi-range" />
+            <div class="flex justify-between text-[10px] text-white/40 mt-1 font-semibold"><span>4 000 Ft</span><span>50 000 Ft</span></div>
+          </div>
+          <div>
+            <div class="flex items-center justify-between text-sm font-semibold">
+              <label for="roi-napok" class="text-white/85">Nyitva / hó</label>
+              <span class="rounded-full bg-white/10 ring-1 ring-white/15 px-3 py-1 text-base font-extrabold tracking-tighter2"><span id="roi-napok-val">25</span> nap</span>
+            </div>
+            <input id="roi-napok" type="range" min="15" max="30" value="25" class="w-full mt-3 roi-range" />
+            <div class="flex justify-between text-[10px] text-white/40 mt-1 font-semibold"><span>15</span><span>30</span></div>
+          </div>
+        </div>
+        <div class="mt-7 rounded-xl bg-ink-900/40 ring-1 ring-white/10 p-4 text-[11px] text-white/55">
+          <b class="text-white/80">Hogyan számolunk:</b> mai bevétel = mosás/nap × ár × munkanap; BoxBook-utáni bevétel: −40% no-show megtakarítás + 18% kihasználtság-növekedés.
+        </div>
+      </div>
+
+      <div class="lg:col-span-3 space-y-3 fade-up" style="transition-delay: 80ms">
+        <div class="rounded-2xl bg-white text-ink-900 p-6 lg:p-7 relative overflow-hidden">
+          <div class="absolute -top-16 -right-16 w-48 h-48 grad-bg rounded-full blur-3xl opacity-25"></div>
+          <div class="relative flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div class="text-[11px] uppercase tracking-widest text-ink-500 font-extrabold">Extra havi bevétel</div>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span id="roi-lift" class="text-5xl lg:text-6xl font-extrabold tracking-tightest grad-text-strong leading-none">+ 88 800</span>
+                <span class="text-2xl text-ink-500 font-bold">Ft / hó</span>
+              </div>
+            </div>
+            <div class="rounded-xl bg-leaf-50 ring-1 ring-leaf-200 px-4 py-3">
+              <div class="text-[10px] uppercase tracking-widest text-leaf-700 font-extrabold">Évente</div>
+              <div class="mt-1 text-2xl font-extrabold tracking-tighter2 text-ink-900"><span id="roi-yearly">1 065</span> e Ft</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-3">
+          <div class="rounded-xl bg-white/[0.06] ring-1 ring-white/10 p-4">
+            <div class="text-[10px] uppercase tracking-widest text-white/55 font-bold">Mai havi</div>
+            <div class="mt-1 text-xl font-extrabold tracking-tighter2"><span id="roi-current">3 600</span> e Ft</div>
+          </div>
+          <div class="rounded-xl bg-white/[0.06] ring-1 ring-white/10 p-4">
+            <div class="text-[10px] uppercase tracking-widest text-leaf-400 font-bold">BoxBookkal</div>
+            <div class="mt-1 text-xl font-extrabold tracking-tighter2"><span id="roi-future">3 689</span> e Ft</div>
+          </div>
+          <div class="rounded-xl bg-white/[0.06] ring-1 ring-white/10 p-4">
+            <div class="text-[10px] uppercase tracking-widest text-white/55 font-bold">Megtérülés</div>
+            <div class="mt-1 text-xl font-extrabold tracking-tighter2"><span id="roi-payback">≤ 1</span> hó</div>
+          </div>
+        </div>
+
+        <a href="#arazas" class="group flex items-center justify-between rounded-2xl grad-bg text-ink-900 px-6 py-4 font-extrabold hover:-translate-y-0.5 transition-transform">
+          <span class="text-sm">Pricing megnézése a számokkal együtt</span>
+          <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-0.5 transition-transform"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

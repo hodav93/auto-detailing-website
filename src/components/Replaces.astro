@@ -1,0 +1,84 @@
+---
+// "Mit vált ki" — egy szalon-tulajdonosnak ma 5-7 különálló eszköze van.
+// A BoxBook egyetlen rendszerbe csomagolja az egészet. Lumora-elv.
+
+const tools = [
+  { name: "Excel / Google Sheets", label: "Foglalási napló", color: "#107C41" },
+  { name: "Telefonos foglalás", label: "Időpont-egyeztetés", color: "#0F172A" },
+  { name: "Booksy / SimplyBook", label: "Generic naptár", color: "#7C3AED" },
+  { name: "Mailchimp / Loops", label: "Vendég-email", color: "#FFE01B" },
+  { name: "Excel + papír cetli", label: "Vendég-adatbázis", color: "#107C41" },
+  { name: "Excel táblázat", label: "Bevétel-követés", color: "#107C41" },
+];
+---
+
+<section id="mit-valt-ki" class="relative bg-white border-b border-ink-100">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8 py-24 lg:py-28">
+    <div class="max-w-3xl mx-auto text-center fade-up">
+      <span class="inline-flex items-center gap-2 rounded-full bg-ink-50 ring-1 ring-ink-200 text-ink-700 px-3 py-1 text-[11px] font-bold tracking-widest uppercase">
+        Mit vált ki
+      </span>
+      <h2 class="mt-5 text-4xl lg:text-6xl font-extrabold tracking-tightest text-balance leading-[1.02]">
+        6 eszköz helyett 1. <span class="grad-text-strong">Tényleg.</span>
+      </h2>
+      <p class="mt-5 text-ink-600 text-lg text-pretty">
+        A BoxBook összerakja, amit eddig 5–7 különböző helyen tartottál. Lemondod ezek havidíját, és többé nem kontextusváltogatsz közöttük foglalás-, számlázás-, vendég-követés-közben.
+      </p>
+    </div>
+
+    <div class="mt-14 grid items-center gap-8 lg:grid-cols-[1fr_auto_1fr] lg:gap-10 max-w-6xl mx-auto">
+      <!-- LEFT: crossed-out tools -->
+      <div class="grid gap-2.5 sm:grid-cols-2 fade-up">
+        {tools.map((tool) => (
+          <div class="group relative flex items-center gap-3 rounded-2xl border border-ink-200 bg-white px-3 py-3 transition-colors hover:border-ink-300">
+            <span class="grid place-items-center w-10 h-10 flex-shrink-0 rounded-lg text-white text-[11px] font-extrabold uppercase tracking-widest" style={`background-color: ${tool.color}`}>
+              {tool.name.slice(0, 2).toUpperCase()}
+            </span>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-semibold text-ink-500 line-through decoration-rose-400 decoration-2 decoration-[1.5px]">{tool.name}</div>
+              <div class="mt-0.5 text-[11px] text-ink-500">{tool.label}</div>
+            </div>
+            <span class="grid place-items-center w-6 h-6 flex-shrink-0 rounded-full bg-rose-50 text-rose-500">
+              <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <!-- MIDDLE: arrow -->
+      <div class="flex items-center justify-center">
+        <span class="hidden items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-ink-700 lg:inline-flex">
+          <span class="block h-px w-8 bg-gradient-to-r from-transparent to-leaf-400"></span>
+          Helyett
+          <span class="block h-px w-8 bg-gradient-to-l from-transparent to-leaf-400"></span>
+        </span>
+        <span class="inline-flex items-center gap-2 rounded-full bg-leaf-50 ring-1 ring-leaf-200 px-3 py-1 text-xs font-extrabold uppercase tracking-widest text-leaf-700 lg:hidden">
+          ↓ Helyett ↓
+        </span>
+      </div>
+
+      <!-- RIGHT: BoxBook focal -->
+      <div class="relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-leaf-50 via-white to-cyan-50 p-8 lg:p-10 text-center ring-1 ring-leaf-200 shadow-[0_20px_50px_rgba(132,204,22,0.15)] fade-up">
+        <span class="absolute -right-10 top-1/3 w-48 h-48 grad-bg rounded-full blur-3xl opacity-30"></span>
+        <div class="relative">
+          <div class="mx-auto grid place-items-center w-16 h-16 rounded-2xl bg-ink-900 text-white shadow-[0_12px_30px_rgba(9,9,11,0.30)]">
+            <i data-lucide="boxes" class="w-8 h-8 text-leaf-400"></i>
+          </div>
+          <div class="mt-4 text-3xl font-extrabold tracking-tightest text-ink-900">BoxBook</div>
+          <div class="mt-1 text-sm text-ink-600">Egy rendszer mindenre</div>
+          <ul class="mt-6 space-y-2 text-left text-sm text-ink-700">
+            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0 text-leaf-600"></i><span>Foglalás + naptár</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0 text-leaf-600"></i><span>Vendég + jármű adatbázis</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0 text-leaf-600"></i><span>Email + SMS automatikusan</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0 text-leaf-600"></i><span>Bérlet + ajándékkártya + kupon</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle" class="w-4 h-4 mt-0.5 flex-shrink-0 text-leaf-600"></i><span>Bevétel + KPI riport</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-12 text-center text-sm text-ink-600">
+      Tipikus megtakarítás: <b class="text-ink-900">~15-30 000 Ft/hó</b> eszköz-előfizetésben + <b class="text-ink-900">5-10 óra/hét</b> kontextus-váltogatásban.
+    </p>
+  </div>
+</section>

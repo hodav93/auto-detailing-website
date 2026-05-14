@@ -1,0 +1,56 @@
+---
+import { getContent, tSync } from "../lib/cms";
+const c = await getContent();
+const demoLabel = tSync(c, "cta.demo.label", "Demó kipróbálása");
+---
+
+<section id="demo" class="relative overflow-hidden bg-ink-900">
+  <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(at 20% 30%, rgba(132,204,22,0.30), transparent 50%), radial-gradient(at 80% 70%, rgba(6,182,212,0.25), transparent 50%);"></div>
+  <div class="absolute inset-0 pointer-events-none opacity-[0.06]" style="background-image: linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 56px 56px;"></div>
+
+  <div class="relative mx-auto max-w-5xl px-5 lg:px-8 py-24 lg:py-32 text-center">
+    <div class="fade-up">
+      <span class="inline-flex items-center gap-2 rounded-full bg-white/10 text-white px-3 py-1 text-[11px] font-bold tracking-widest uppercase ring-1 ring-white/15">Próbáld ki most</span>
+      <h2 class="mt-6 text-5xl lg:text-7xl font-extrabold tracking-tightest text-white text-balance leading-[0.98]">
+        Foglalj egy autót<br/>a <span class="grad-text">demó-szalonban</span> — 2 perc.
+      </h2>
+      <p class="mt-7 text-white/75 text-lg max-w-2xl mx-auto text-pretty leading-relaxed">
+        Nézd meg, hogyan néz ki az egész folyamat egy igazi autókozmetika oldaláról.
+        Vendégként foglalhatsz, majd az admin felületen láthatod, hova esett a foglalás.
+      </p>
+
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href="#"
+          data-contact-source="DEMO_TRIAL"
+          class="group inline-flex items-center gap-2 rounded-full grad-bg text-ink-900 px-7 py-4 text-sm font-extrabold hover:-translate-y-0.5 transition-all shadow-[0_20px_60px_-15px_rgba(132,204,22,0.55)]"
+        >
+          <i data-lucide="play" class="w-4 h-4"></i>
+          {demoLabel}
+          <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+        </a>
+        <a href="/funkciok" class="inline-flex items-center gap-2 rounded-full bg-white/10 text-white px-7 py-4 text-sm font-bold ring-1 ring-white/15 hover:bg-white/15 transition-colors">
+          Funkciók
+        </a>
+      </div>
+
+      <div class="mt-12 grid sm:grid-cols-3 gap-3 max-w-2xl mx-auto text-left">
+        <div class="rounded-2xl bg-white/[0.06] ring-1 ring-white/10 p-5">
+          <div class="text-leaf-400"><i data-lucide="zap" class="w-5 h-5"></i></div>
+          <div class="mt-2.5 font-bold text-white text-sm tracking-tighter2">Regisztráció nélkül</div>
+          <div class="text-xs text-white/60 mt-0.5">Csak kattints és kezdd</div>
+        </div>
+        <div class="rounded-2xl bg-white/[0.06] ring-1 ring-white/10 p-5">
+          <div class="text-leaf-400"><i data-lucide="database" class="w-5 h-5"></i></div>
+          <div class="mt-2.5 font-bold text-white text-sm tracking-tighter2">Valódi adatok</div>
+          <div class="text-xs text-white/60 mt-0.5">Példa szalon teljes árazással</div>
+        </div>
+        <div class="rounded-2xl bg-white/[0.06] ring-1 ring-white/10 p-5">
+          <div class="text-leaf-400"><i data-lucide="user-cog" class="w-5 h-5"></i></div>
+          <div class="mt-2.5 font-bold text-white text-sm tracking-tighter2">Admin nézet is</div>
+          <div class="text-xs text-white/60 mt-0.5">Lásd a foglalást a naptáron</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

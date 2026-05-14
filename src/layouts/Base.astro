@@ -1,0 +1,282 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ContactModal from "../components/ContactModal.astro";
+import StickyCta from "../components/StickyCta.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+  showStickyCta?: boolean;
+  structuredData?: object;
+}
+
+const {
+  title = "BoxBook — Foglalási rendszer autókozmetikáknak | 9 900 Ft / hó",
+  description = "Mosóállás-alapú online foglalási rendszer autókozmetikáknak: Resource Timeline naptár, jármű-profilok, árazási mátrix, hűségpont, bérletek, Számlázz.hu, SMS, Google sync. Havi 9 900 Ft, 14 nap próba.",
+  ogImage = "/og-image.svg",
+  canonical = Astro.url.pathname,
+  showStickyCta = true,
+  structuredData,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "https://boxbook.hu";
+const canonicalUrl = `${siteUrl}${canonical === "/" ? "/" : canonical}`;
+---
+
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="author" content="BoxBook" />
+    <meta name="theme-color" content="#09090b" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="hu_HU" />
+    <meta property="og:site_name" content="BoxBook" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide ikonok -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" is:inline></script>
+
+    {structuredData && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(structuredData)}
+      />
+    )}
+  </head>
+  <body class="bg-white text-ink-800 antialiased">
+    <Header />
+    <main id="top"><slot /></main>
+    <Footer />
+    <ContactModal />
+    {showStickyCta && <StickyCta />}
+
+    <script is:inline>
+      // Lucide ikonok inicializálása
+      if (typeof window !== "undefined" && window.lucide) window.lucide.createIcons();
+
+      // év a footerben
+      document.querySelectorAll("[data-year]").forEach((el) => {
+        el.textContent = String(new Date().getFullYear());
+      });
+
+      // fade-up animáció
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { rootMargin: "0px 0px -10% 0px", threshold: 0.05 }
+      );
+      document.querySelectorAll(".fade-up").forEach((el) => io.observe(el));
+
+      // Pricing toggle (havi / éves)
+      (function () {
+        const btns = document.querySelectorAll(".period-btn");
+        if (!btns.length) return;
+        const setPeriod = (period) => {
+          btns.forEach((b) => {
+            const active = b.dataset.period === period;
+            b.classList.toggle("bg-ink-900", active);
+            b.classList.toggle("text-white", active);
+            b.classList.toggle("text-ink-700", !active);
+          });
+          document.querySelectorAll(".price-monthly").forEach((el) => el.classList.toggle("hidden", period !== "monthly"));
+          document.querySelectorAll(".price-yearly").forEach((el) => el.classList.toggle("hidden", period !== "yearly"));
+        };
+        btns.forEach((b) => b.addEventListener("click", () => setPeriod(b.dataset.period)));
+      })();
+
+      // ROI kalkulátor
+      (function () {
+        const mosas = document.getElementById("roi-mosas");
+        if (!mosas) return;
+        const arEl = document.getElementById("roi-ar");
+        const napok = document.getElementById("roi-napok");
+        const o = {
+          mosas: document.getElementById("roi-mosas-val"),
+          ar: document.getElementById("roi-ar-val"),
+          napok: document.getElementById("roi-napok-val"),
+          lift: document.getElementById("roi-lift"),
+          yearly: document.getElementById("roi-yearly"),
+          current: document.getElementById("roi-current"),
+          future: document.getElementById("roi-future"),
+          payback: document.getElementById("roi-payback"),
+        };
+        const fmt = (n) => Math.round(n).toLocaleString("hu-HU").replace(/,/g, " ");
+        const recalc = () => {
+          const m = parseInt(mosas.value, 10);
+          const a = parseInt(arEl.value, 10) * 1000;
+          const n = parseInt(napok.value, 10);
+          o.mosas.textContent = m;
+          o.ar.textContent = parseInt(arEl.value, 10);
+          o.napok.textContent = n;
+          const current = m * a * n;
+          const future = current * 1.21;
+          const lift = future - current;
+          const yearly = lift * 12;
+          o.current.textContent = fmt(current / 1000);
+          o.future.textContent = fmt(future / 1000);
+          o.lift.textContent = "+ " + fmt(lift);
+          o.yearly.textContent = fmt(yearly / 1000);
+          const pricing = 14900;
+          if (lift >= pricing) o.payback.textContent = "≤ 1 hó";
+          else o.payback.textContent = Math.ceil(pricing / lift) + " hó";
+        };
+        [mosas, arEl, napok].forEach((el) => el.addEventListener("input", recalc));
+        recalc();
+      })();
+
+      // Sticky CTA + Kapcsolat modal — a megfelelő komponens DOM-okra épülve
+      (function () {
+        const bar = document.getElementById("sticky-cta");
+        const closeBtn = document.getElementById("sticky-cta-close");
+        if (bar) {
+          let dismissed = sessionStorage.getItem("boxbook-cta-dismissed") === "1";
+          const ctaSection = document.getElementById("demo");
+          const pricingSection = document.getElementById("arazas");
+          const show = () => bar.classList.remove("translate-y-full", "opacity-0", "pointer-events-none");
+          const hide = () => bar.classList.add("translate-y-full", "opacity-0", "pointer-events-none");
+          const onScroll = () => {
+            if (dismissed) { hide(); return; }
+            const y = window.scrollY;
+            if (y < 700) { hide(); return; }
+            let nearBigCta = false;
+            for (const s of [pricingSection, ctaSection]) {
+              if (!s) continue;
+              const r = s.getBoundingClientRect();
+              if (r.top < window.innerHeight && r.bottom > 100) { nearBigCta = true; break; }
+            }
+            if (nearBigCta) hide(); else show();
+          };
+          if (closeBtn) closeBtn.addEventListener("click", () => {
+            dismissed = true;
+            sessionStorage.setItem("boxbook-cta-dismissed", "1");
+            hide();
+          });
+          window.addEventListener("scroll", onScroll, { passive: true });
+          onScroll();
+        }
+
+        const modal = document.getElementById("contact-modal");
+        if (!modal) return;
+        const form = document.getElementById("contact-form");
+        const sourceInput = document.getElementById("contact-source-input");
+        const title = document.getElementById("contact-modal-title");
+        const desc = document.getElementById("contact-modal-desc");
+        const eyebrow = document.getElementById("contact-modal-eyebrow");
+        const errBox = document.getElementById("contact-error");
+        const successBox = document.getElementById("contact-success");
+        const submit = document.getElementById("contact-submit");
+        const submitLabel = submit && submit.querySelector(".contact-submit-label");
+
+        const COPY = {
+          CONTACT_FORM:   { eyebrow: "Kapcsolat",         title: "Vegyük fel a kapcsolatot", desc: "Munkaidőben ~15 percen belül válaszolunk.",                                                              btn: "Üzenet küldése" },
+          AUDIT_REQUEST:  { eyebrow: "Marketing audit",   title: "Kérek egy ingyen audit-ot", desc: "Megnézzük a Google Business profilod, Facebook-oldalad, ad-fiókod — és írunk 3 oldalas javaslatot.",   btn: "Audit kérése" },
+          CALL_REQUEST:   { eyebrow: "30 perces hívás",   title: "Beszéljünk 30 percet",      desc: "Megnézzük együtt mit kell a szalonodnak. Nem érdek, nem nyomás.",                                       btn: "Hívás kérése" },
+          NETWORK_QUOTE:  { eyebrow: "Hálózat ajánlat",   title: "Lánc-ajánlat kérése",       desc: "2+ szalonra, dedikált csapattal. ~24 órán belül válaszolunk.",                                          btn: "Ajánlatkérés" },
+          DEMO_TRIAL:     { eyebrow: "14 nap próba",      title: "Próbafiók indítása",        desc: "5 perc alatt áll össze, kártyaadat nélkül.",                                                            btn: "Próbafiók indítása" },
+          OTHER:          { eyebrow: "Kapcsolat",         title: "Írj nekünk",                desc: "Bármi kérdést szívesen veszünk.",                                                                       btn: "Üzenet küldése" },
+        };
+
+        function openModal(source) {
+          const c = COPY[source] || COPY.CONTACT_FORM;
+          sourceInput.value = source;
+          eyebrow.textContent = c.eyebrow;
+          title.textContent = c.title;
+          desc.textContent = c.desc;
+          if (submitLabel) submitLabel.textContent = c.btn;
+          errBox.classList.add("hidden");
+          successBox.classList.add("hidden");
+          form.classList.remove("hidden");
+          modal.showModal();
+        }
+        function closeModal() {
+          modal.close();
+          setTimeout(() => { form.reset(); successBox.classList.add("hidden"); form.classList.remove("hidden"); }, 300);
+        }
+        document.querySelectorAll("[data-contact-source]").forEach((el) => {
+          el.addEventListener("click", (e) => { e.preventDefault(); openModal(el.dataset.contactSource); });
+        });
+        modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+        document.querySelectorAll("[data-close-modal]").forEach((el) => el.addEventListener("click", closeModal));
+
+        const API_URL = window.BOXBOOK_API_URL || (location.hostname === "localhost" || location.hostname === "127.0.0.1" ? "http://localhost:3001/api/marketing/contact" : "https://app.boxbook.hu/api/marketing/contact");
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          errBox.classList.add("hidden");
+          submit.disabled = true;
+          const data = Object.fromEntries(new FormData(form));
+          data.pageUrl = location.href;
+          data.referrer = document.referrer || null;
+          const params = new URLSearchParams(location.search);
+          ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"].forEach((k) => {
+            const v = params.get(k); if (v) data[k] = v;
+          });
+          try {
+            const res = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+            const json = await res.json().catch(() => ({}));
+            if (!res.ok || !json.ok) throw new Error(json.error || "Hiba a küldéskor.");
+            form.classList.add("hidden");
+            successBox.classList.remove("hidden");
+          } catch (err) {
+            errBox.textContent = err.message || "Hiba történt.";
+            errBox.classList.remove("hidden");
+          } finally {
+            submit.disabled = false;
+          }
+        });
+
+        // Hírlevél form
+        document.querySelectorAll("form[data-newsletter]").forEach((nf) => {
+          nf.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = nf.querySelector("button[type=submit]");
+            const emailInput = nf.querySelector("input[type=email]");
+            if (!emailInput || !emailInput.value) return;
+            btn.disabled = true;
+            try {
+              await fetch(API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ source: "NEWSLETTER", email: emailInput.value, pageUrl: location.href }) });
+              btn.innerHTML = "Köszi! ✓";
+            } catch { btn.disabled = false; }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+---
+// Aloldal-specifikus sticky CTA — minden oldalon más üzenettel.
+// Astro.url.pathname alapján döntjük el a tonusát.
+
+import { getContent, tSync } from "../lib/cms";
+const c = await getContent();
+const demoLabel = tSync(c, "cta.demo.label", "Demó kipróbálása");
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+type Variant = {
+  eyebrow: string;
+  body: string;
+  bodyHighlight?: string;
+  href: string;
+  ctaSource: string;
+  ctaLabel: string;
+  ctaShortLabel: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  icon: string;
+  iconBg: string;
+  accent: "default" | "marketing" | "onboarding";
+};
+
+const VARIANTS: Record<string, Variant> = {
+  "/marketing": {
+    eyebrow: "PIACI FIGYELMEZTETÉS",
+    bodyHighlight: "−500e Ft / hó",
+    body: "amit a versenytársad foglal le helyetted, amíg nem foglalkozol vele",
+    href: "#",
+    ctaSource: "AUDIT_REQUEST",
+    ctaLabel: "Ingyen audit MA",
+    ctaShortLabel: "Audit",
+    secondaryHref: "/#arazas",
+    secondaryLabel: "Csomagok",
+    icon: "triangle-alert",
+    iconBg: "bg-[#fca5a5] text-ink-900",
+    accent: "marketing",
+  },
+  "/onboarding": {
+    eyebrow: "MÉG MA",
+    bodyHighlight: "7 nap múlva éles",
+    body: "vagy. Mi futtatjuk veled — adatimport, beállítás, kampány. Ingyen.",
+    href: "#",
+    ctaSource: "DEMO_TRIAL",
+    ctaLabel: "Induljon az onboarding",
+    ctaShortLabel: "Indítsuk",
+    secondaryHref: "#",
+    secondaryLabel: "Hívás",
+    icon: "rocket",
+    iconBg: "grad-bg text-ink-900",
+    accent: "onboarding",
+  },
+  "/lanc": {
+    eyebrow: "LÁNC-AJÁNLAT",
+    bodyHighlight: "Per szalon 9 900 Ft",
+    body: "/ hó — központi admin ingyen. 5 szalon = 49 500 Ft / hó.",
+    href: "#",
+    ctaSource: "NETWORK_QUOTE",
+    ctaLabel: "Ajánlatkérés",
+    ctaShortLabel: "Ajánlat",
+    secondaryHref: "/#arazas",
+    secondaryLabel: "Árak",
+    icon: "building",
+    iconBg: "grad-bg text-ink-900",
+    accent: "default",
+  },
+  "/esettanulmanyok": {
+    eyebrow: "+1.1M Ft / HÓ",
+    bodyHighlight: "A saját szalonod?",
+    body: "Ingyen audit — megnézzük mit lehet 30 nap alatt megemelni nálad.",
+    href: "#",
+    ctaSource: "AUDIT_REQUEST",
+    ctaLabel: "Audit a saját számokra",
+    ctaShortLabel: "Audit",
+    secondaryHref: "/#demo",
+    secondaryLabel: "Demó",
+    icon: "chart-no-axes-combined",
+    iconBg: "grad-bg text-ink-900",
+    accent: "default",
+  },
+  "/funkciok": {
+    eyebrow: "BOXBOOK",
+    bodyHighlight: "9 900 Ft / hó",
+    body: "· komplett rendszer · 14 nap próba · kártyaadat nélkül",
+    href: "/#demo",
+    ctaSource: "DEMO_TRIAL",
+    ctaLabel: "Demó kipróbálása",
+    ctaShortLabel: "Demó",
+    secondaryHref: "/#arazas",
+    secondaryLabel: "Árazás",
+    icon: "play",
+    iconBg: "grad-bg text-ink-900",
+    accent: "default",
+  },
+};
+
+const DEFAULT_VARIANT: Variant = {
+  eyebrow: "BOXBOOK · KOMPLETT RENDSZER",
+  bodyHighlight: "9 900 Ft / hó",
+  body: "· 14 nap próba · kártyaadat nélkül",
+  href: "/#demo",
+  ctaSource: "DEMO_TRIAL",
+  ctaLabel: demoLabel,
+  ctaShortLabel: "Demó",
+  secondaryHref: "/#arazas",
+  secondaryLabel: "Árazás",
+  icon: "play",
+  iconBg: "grad-bg text-ink-900",
+  accent: "default",
+};
+
+const v = VARIANTS[path] ?? DEFAULT_VARIANT;
+
+const isMarketing = v.accent === "marketing";
+const eyebrowClass = isMarketing
+  ? "text-[#fca5a5]"
+  : v.accent === "onboarding"
+    ? "text-leaf-400"
+    : "text-leaf-400";
+---
+
+<div id="sticky-cta" class="fixed inset-x-0 bottom-0 z-40 translate-y-full opacity-0 pointer-events-none transition-all duration-300">
+  <div class="mx-auto max-w-6xl px-3 sm:px-5 pb-3 sm:pb-4">
+    <div class="rounded-2xl bg-ink-900 text-white shadow-[0_20px_60px_-15px_rgba(9,9,11,0.45)] ring-1 ring-white/10 backdrop-blur overflow-hidden relative">
+      {isMarketing ? (
+        <div class="absolute -top-12 -left-12 w-40 h-40 bg-[#dc2626] rounded-full blur-3xl opacity-25"></div>
+      ) : (
+        <div class="absolute -top-12 -left-12 w-40 h-40 grad-bg rounded-full blur-3xl opacity-30"></div>
+      )}
+      <div class="relative flex items-center gap-3 sm:gap-5 px-4 sm:px-5 py-3">
+        <div class={`hidden sm:grid place-items-center w-10 h-10 rounded-xl shrink-0 ${v.iconBg}`}>
+          <i data-lucide={v.icon} class="w-5 h-5"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class={`text-[10px] uppercase tracking-widest font-extrabold ${eyebrowClass}`}>{v.eyebrow}</div>
+          <div class="font-extrabold tracking-tighter2 leading-tight text-sm sm:text-base truncate">
+            {v.bodyHighlight && <span class={isMarketing ? "text-[#fca5a5]" : "grad-text"}>{v.bodyHighlight}</span>}
+            <span class="text-white/80"> {v.body}</span>
+          </div>
+        </div>
+        {v.secondaryHref && v.secondaryLabel && (
+          <a href={v.secondaryHref} class="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-white/10 text-white ring-1 ring-white/15 px-3 py-2 text-xs font-bold hover:bg-white/15 transition-colors shrink-0">
+            {v.secondaryLabel}
+          </a>
+        )}
+        <a
+          href={v.href}
+          data-contact-source={v.ctaSource}
+          class={`inline-flex items-center gap-1.5 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-extrabold hover:-translate-y-0.5 transition-transform shrink-0 ${isMarketing ? "bg-[#fca5a5] text-ink-900" : "grad-bg text-ink-900"}`}
+        >
+          <i data-lucide={isMarketing ? "search" : "arrow-right"} class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">{v.ctaLabel}</span>
+          <span class="sm:hidden">{v.ctaShortLabel}</span>
+          {!isMarketing && <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>}
+        </a>
+        <button id="sticky-cta-close" aria-label="Bezárás" class="hidden sm:grid place-items-center w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 text-white/55 hover:text-white transition-colors shrink-0">
+          <i data-lucide="x" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

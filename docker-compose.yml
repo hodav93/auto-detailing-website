@@ -1,12 +1,19 @@
+# DEV: Astro saját dev szerverrel a 3002-en — gyors hot-reload.
+# Csak Postgres/Mailpit-hez kell külön konténer (a foglaló app docker-compose-jában).
+# Indítás: npm install && npm run dev
+
+# Ez a fájl a CSAK-NGINX docker-szerver hasznát szolgálja, ha valamiért
+# konténerből szeretnénk szervírozni a buildet (pl. prod-szerű smoke teszt).
+# Production: docker-compose.prod.yml (Coolify ezt használja).
 services:
   web:
-    image: nginx:1.27-alpine
+    build:
+      context: .
+      args:
+        PUBLIC_CMS_URL: ${PUBLIC_CMS_URL:-http://host.docker.internal:3001}
+        PUBLIC_SITE_URL: ${PUBLIC_SITE_URL:-https://boxbook.hu}
+    image: boxbook-marketing:latest
     container_name: boxbook-marketing
     ports:
       - "3002:80"
-    volumes:
-      # könyvtár-mount, mert Docker Desktop Mac-en az egyfájl-mount
-      # új inode-nál (Write/Edit) nem frissül a konténerben.
-      - ./:/usr/share/nginx/html:ro
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     restart: unless-stopped
