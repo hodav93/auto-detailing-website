@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import FeaturesGrid from "../components/FeaturesGrid.astro";
+import { SIGNUP_URL } from "../lib/links";
 ---
 
 <Base
@@ -22,7 +23,7 @@ import FeaturesGrid from "../components/FeaturesGrid.astro";
           Nem általános naptár-app. A BoxBook a <b class="text-ink-900">mosóállás-, autó-, szolgáltatás- és fázis-logika</b> köré épült, hogy a foglalás magától megtalálja a megfelelő helyet. Itt a 40+ funkció rövid összegzése.
         </p>
         <div class="mt-7 flex flex-wrap items-center gap-3">
-          <a href="/#demo" data-contact-source="DEMO_TRIAL" class="inline-flex items-center gap-2 rounded-full bg-ink-900 text-white px-6 py-3.5 text-sm font-semibold hover:bg-ink-800 transition-colors">
+          <a href={SIGNUP_URL} data-contact-source="DEMO_TRIAL" class="inline-flex items-center gap-2 rounded-full bg-ink-900 text-white px-6 py-3.5 text-sm font-semibold hover:bg-ink-800 transition-colors">
             Demó kipróbálása
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
@@ -95,7 +96,7 @@ import FeaturesGrid from "../components/FeaturesGrid.astro";
           <i data-lucide="arrow-left" class="w-4 h-4"></i>
           Vissza a főoldalra
         </a>
-        <a href="/#demo" data-contact-source="DEMO_TRIAL" class="inline-flex items-center gap-2 rounded-full grad-bg text-ink-900 px-6 py-3.5 text-sm font-extrabold hover:-translate-y-0.5 transition-transform">
+        <a href={SIGNUP_URL} data-contact-source="DEMO_TRIAL" class="inline-flex items-center gap-2 rounded-full grad-bg text-ink-900 px-6 py-3.5 text-sm font-extrabold hover:-translate-y-0.5 transition-transform">
           <i data-lucide="play" class="w-4 h-4"></i>
           Demó kipróbálása
           <i data-lucide="arrow-right" class="w-4 h-4"></i>

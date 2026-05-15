@@ -1,5 +1,6 @@
 ---
 import { getContent, tSync } from "../lib/cms";
+import { SIGNUP_URL } from "../lib/links";
 const c = await getContent();
 // CMS-fallback: ha még nincsenek átírva, a régi szövegekkel build-elünk.
 const audienceBadge = tSync(
@@ -48,7 +49,7 @@ const ctaSecondary = tSync(c, "hero.cta.secondary", "Funkciók megnézése");
 
         <div class="mt-8 flex flex-wrap items-center gap-3">
           <a
-            href="/#demo"
+            href={SIGNUP_URL}
             data-contact-source="DEMO_TRIAL"
             class="group relative inline-flex items-center gap-2 rounded-full bg-ink-900 text-white px-6 py-3.5 text-sm font-semibold hover:bg-ink-800 transition-all hover:-translate-y-0.5"
           >

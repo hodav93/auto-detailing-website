@@ -1,5 +1,6 @@
 ---
 import { getContent, getPricing, tSync, fmtPrice } from "../lib/cms";
+import { SIGNUP_URL } from "../lib/links";
 const c = await getContent();
 const plans = await getPricing();
 const title = tSync(c, "pricing.title", "Egyszerű árazás. Bezzeg minden.");
@@ -122,7 +123,7 @@ type PlanFeature = { title?: string; included?: boolean; bold?: boolean };
             </ul>
 
             <a
-              href={plan.ctaHref ?? "#demo"}
+              href={plan.ctaHref ?? SIGNUP_URL}
               data-contact-source={plan.slug === "halozat" ? "NETWORK_QUOTE" : "DEMO_TRIAL"}
               class:list={[
                 "relative mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-extrabold transition-all",

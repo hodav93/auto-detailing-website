@@ -1,4 +1,5 @@
 ---
+import { SIGNUP_URL } from "../lib/links";
 const path = Astro.url.pathname;
 const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 
@@ -46,7 +47,7 @@ const nav = [
 
     <div class="flex items-center gap-2">
       <a
-        href="/#demo"
+        href={SIGNUP_URL}
         data-contact-source="DEMO_TRIAL"
         class="inline-flex items-center gap-1.5 rounded-full bg-ink-900 text-white px-4 py-2 text-sm font-semibold hover:bg-ink-800 transition-colors"
       >

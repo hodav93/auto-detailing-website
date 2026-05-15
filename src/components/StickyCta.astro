@@ -3,8 +3,9 @@
 // Astro.url.pathname alapján döntjük el a tonusát.
 
 import { getContent, tSync } from "../lib/cms";
+import { SIGNUP_URL } from "../lib/links";
 const c = await getContent();
-const demoLabel = tSync(c, "cta.demo.label", "Demó kipróbálása");
+const demoLabel = tSync(c, "cta.demo.label", "14 nap ingyen kipróbálom");
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
@@ -74,8 +75,8 @@ const VARIANTS: Record<string, Variant> = {
     ctaSource: "AUDIT_REQUEST",
     ctaLabel: "Audit a saját számokra",
     ctaShortLabel: "Audit",
-    secondaryHref: "/#demo",
-    secondaryLabel: "Demó",
+    secondaryHref: SIGNUP_URL,
+    secondaryLabel: "Próba",
     icon: "chart-no-axes-combined",
     iconBg: "grad-bg text-ink-900",
     accent: "default",
@@ -84,7 +85,7 @@ const VARIANTS: Record<string, Variant> = {
     eyebrow: "BOXBOOK",
     bodyHighlight: "9 900 Ft / hó",
     body: "· komplett rendszer · 14 nap próba · kártyaadat nélkül",
-    href: "/#demo",
+    href: SIGNUP_URL,
     ctaSource: "DEMO_TRIAL",
     ctaLabel: "Demó kipróbálása",
     ctaShortLabel: "Demó",
@@ -100,7 +101,7 @@ const DEFAULT_VARIANT: Variant = {
   eyebrow: "BOXBOOK · KOMPLETT RENDSZER",
   bodyHighlight: "9 900 Ft / hó",
   body: "· 14 nap próba · kártyaadat nélkül",
-  href: "/#demo",
+  href: SIGNUP_URL,
   ctaSource: "DEMO_TRIAL",
   ctaLabel: demoLabel,
   ctaShortLabel: "Demó",
